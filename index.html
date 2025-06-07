@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Carta Dia dos Namorados</title>
+<style>
+  body {
+    margin: 0;
+    background: #ffe6f0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: relative;
+  }
+
+  /* Fundo de corações animados */
+  .heart {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: transparent;
+    transform: rotate(-45deg);
+    animation: float 15s linear infinite;
+    opacity: 0.7;
+    z-index: 1;
+  }
+
+  .heart::before,
+  .heart::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #ff7fa9;
+    border-radius: 50%;
+  }
+
+  .heart::before {
+    top: -10px;
+    left: 0;
+  }
+
+  .heart::after {
+    top: 0;
+    left: 10px;
+  }
+  @keyframes float {
+    0% {
+      transform: translateY(100vh) rotate(0deg);
+      opacity: 0.7;
+    }
+    100% {
+      transform: translateY(-100vh) rotate(360deg);
+      opacity: 0;
+    }
+  }
+
+  /* Container geral */
+  #container {
+    position: relative;
+    width: 280px;
+    height: 180px;
+    cursor: pointer;
+    perspective: 800px;
+    user-select: none;
+  }
+
+  /* Envelope */
+  #envelope {
+    position: absolute;
+    width: 280px;
+    height: 180px;
+    background: #ffd1dc;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(255, 105, 150, 0.5);
+    overflow: hidden;
+    transform-style: preserve-3d;
+    transition: top 1s ease;
+    top: 0;
+    left: 0;
+    z-index: 10;
+  }
+
+  /* Aba do envelope (flap) */
+  #flap {
+    position: absolute;
+    width: 280px;
+    height: 90px;
+    background: #ff9cb4;
+    border-bottom-left-radius: 140px;
+    border-bottom-right-radius: 140px;
+    top: 0;
+    left: 0;
+    transform-origin: top center;
+    transform-style: preserve-3d;
+    box-shadow: inset 0 5px 8px rgba(255, 255, 255, 0.4);
+    transition: transform 1s ease;
+    z-index: 20;
+  }
+
+  /* Papel dentro do envelope */
+  #paper {
+  position: absolute;
+  width: 420px; /* um pouco menor */
+  height: 500px; /* um pouco menor */
+  background: #fff0f6;
+  border-radius: 10px;
+  border: 1px solid #f3c0d4;
+  box-shadow: 0 6px 15px rgba(255, 100, 150, 0.3);
+  top: 180px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 20px;
+  box-sizing: border-box;
+  color: #b3375f;
+  font-size: 10px; /* diminuído */
+  line-height: 1.4;
+  opacity: 0;
+  transition: top 1s ease, opacity 1s ease;
+  user-select: text;
+  z-index: 5;
+}
+
+
+  /* Quando aberto */
+  #container.open #flap {
+    transform: rotateX(-180deg); /* abre pra cima */
+  }
+
+  #container.open #envelope {
+    top: 320px; /* desce bastante */
+    z-index: 30;
+  }
+
+  #container.open #paper {
+    top: -190px; /* sobe pra aparecer */
+    opacity: 1;
+  }
+
+</style>
+</head>
+<body>
+
+<div id="container" title="Clique para abrir">
+  <div id="envelope">
+    <div id="flap"></div>
+  </div>
+  <div id="paper">
+    <p>❤️ Feliz Dia Dos Namorados ❤️</p>
+    <p>Sei que a gente não é oficialmente um casal, nem sei se um dia seremos, mas mesmo assim queria te desejar um Feliz Dia dos Namorados ❤️</p>
+    <p>Você tem sido uma pessoa muito especial pra mim, alguém que alegra meus dias e deixa tudo mais leve</p>
+    <p>Às vezes eu posso ser um pouco chato, mandar mensagens demais ou te irritar um pouco, mas é só porque gosto muito de você, do teu jeito, da tua presença, de como me sinto quando estamos conversando (Aliás, adoro nossas conversas — desculpa se às vezes não tenho muito assunto ou se pareço meio bobo, é só porque quero ter qualquer desculpa pra falar com você kkkk)</p>
+    <p>Só queria que soubesse que eu te amo, de verdade é simplesmente algo que eu nunca senti, e te admiro muito</p>
+    <p>Eu gosto muito da sua risada, do seu sorriso, do quão esperta você é, e do seu jeitinho</p>
+    <p>Eu simplesmente gosto de você. Eu sei que foi algo meio repentino, isso tudo aconteceu só por causa daquele natal, em que você mandou mensagem para mim. Era a última coisa no mundo que eu esperava que iria acontecer, talvez tenha sido Deus, não sei kkkk. Mas de verdade, foi o dia mais feliz da minha vida, não me arrependo de nenhum momento</p>  
+    <p></p>
+    <p>A e uma coisa, eu tenho algo para você, mas eu quero te entregar pessoalmente 😃</p>
+    <p>Te amoooo ❤️❤️</p>
+    <p>Alias, se algum dia desses você quiser assistir alguma série tipo Sobrenatural comigo me avisa que eu ficarei muito feliz ❤️😃</p>
+    <p>-Rogério</p>
+  </div>
+</div>
+
+<script>
+  const container = document.getElementById('container');
+  let opened = false
+  container.addEventListener('click', () => {
+    if (opened === false) {
+      container.classList.toggle('open');
+      opened = true;
+    }
+  });
+
+  // Criar corações no fundo
+  function criarCorações() {
+    const quantidade = 30;
+    for(let i = 0; i < quantidade; i++) {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = 10 + Math.random() * 10 + 's';
+      heart.style.width = 15 + Math.random() * 20 + 'px';
+      heart.style.height = heart.style.width;
+      document.body.appendChild(heart);
+    }
+  }
+  criarCorações();
+</script>
+
+</body>
+</html>
